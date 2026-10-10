@@ -1,0 +1,290 @@
+/* Custom CSS for Shalini SmartMart */
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap');
+
+:root {
+    --primary: #0f172a;
+    --primary-light: #1e293b;
+    --accent: #10b981;
+    --accent-hover: #059669;
+    --secondary-bg: #f8fafc;
+    --text-main: #334155;
+    --text-muted: #64748b;
+    --card-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.01);
+    --hover-shadow: 0 20px 30px -10px rgba(16, 185, 129, 0.15);
+}
+
+body {
+    font-family: 'Outfit', sans-serif;
+    color: var(--text-main);
+    background-color: #f1f5f9;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex: 1;
+}
+
+/* Navbar */
+.navbar-brand-mart {
+    font-weight: 700;
+    font-size: 1.5rem;
+    color: #ffffff !important;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.navbar-brand-mart .brand-accent {
+    color: var(--accent);
+}
+
+.custom-navbar {
+    background-color: var(--primary);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+.nav-link {
+    color: #cbd5e1 !important;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    padding: 0.5rem 0.9rem !important;
+}
+
+.nav-link:hover, .nav-link.active {
+    color: var(--accent) !important;
+}
+
+.cart-badge {
+    background-color: #f43f5e;
+    font-size: 0.75rem;
+    border-radius: 50rem;
+    padding: 0.25em 0.6em;
+}
+
+/* Hero Section */
+.hero-section {
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #064e3b 100%);
+    color: white;
+    padding: 5rem 0;
+    border-radius: 0 0 2rem 2rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-title {
+    font-size: 3rem;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.hero-subtitle {
+    font-size: 1.25rem;
+    color: #cbd5e1;
+    font-weight: 300;
+}
+
+/* Cards */
+.smart-card {
+    background: white;
+    border: none;
+    border-radius: 1rem;
+    box-shadow: var(--card-shadow);
+    transition: all 0.3s ease;
+    overflow: hidden;
+}
+
+.smart-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--hover-shadow);
+}
+
+/* Product Card */
+.product-card {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.product-img-wrap {
+    height: 200px;
+    position: relative;
+    overflow: hidden;
+    background-color: #f8fafc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.product-img-wrap img {
+    max-height: 100%;
+    width: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.product-card:hover .product-img-wrap img {
+    transform: scale(1.08);
+}
+
+.discount-badge {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: linear-gradient(135deg, #f43f5e, #e11d48);
+    color: white;
+    font-weight: 600;
+    font-size: 0.75rem;
+    padding: 4px 10px;
+    border-radius: 20px;
+}
+
+.stock-badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    padding: 4px 8px;
+    border-radius: 12px;
+}
+
+/* Price Styling */
+.price-tag {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--primary);
+}
+
+.original-price {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    text-decoration: line-through;
+    margin-left: 6px;
+}
+
+/* Category Card */
+.category-card {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 1rem;
+    text-align: center;
+    text-decoration: none;
+    color: var(--text-main);
+    box-shadow: var(--card-shadow);
+    transition: all 0.3s ease;
+    display: block;
+}
+
+.category-card:hover {
+    background: var(--accent);
+    color: white;
+    transform: translateY(-4px);
+}
+
+.category-icon {
+    font-size: 2.2rem;
+    margin-bottom: 0.5rem;
+    color: var(--accent);
+}
+
+.category-card:hover .category-icon {
+    color: white;
+}
+
+/* Stepper Order Progress Bar */
+.order-stepper {
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    margin: 2rem 0;
+}
+
+.order-stepper::before {
+    content: '';
+    position: absolute;
+    top: 20px;
+    left: 5%;
+    width: 90%;
+    height: 4px;
+    background-color: #e2e8f0;
+    z-index: 1;
+}
+
+.step-item {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    flex: 1;
+}
+
+.step-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background-color: #e2e8f0;
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 8px auto;
+    font-weight: 700;
+    transition: all 0.3s ease;
+}
+
+.step-item.active .step-icon {
+    background-color: var(--accent);
+    color: white;
+    box-shadow: 0 0 15px rgba(16, 185, 129, 0.4);
+}
+
+.step-item.completed .step-icon {
+    background-color: var(--primary);
+    color: white;
+}
+
+.step-label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-muted);
+}
+
+.step-item.active .step-label {
+    color: var(--accent);
+}
+
+/* Admin Metric Card */
+.stat-card {
+    border-radius: 1rem;
+    border: none;
+    color: white;
+    padding: 1.5rem;
+    box-shadow: var(--card-shadow);
+}
+
+.stat-card-products { background: linear-gradient(135deg, #3b82f6, #1d4ed8); }
+.stat-card-customers { background: linear-gradient(135deg, #10b981, #047857); }
+.stat-card-orders { background: linear-gradient(135deg, #8b5cf6, #6d28d9); }
+.stat-card-sales { background: linear-gradient(135deg, #f59e0b, #d97706); }
+.stat-card-stock { background: linear-gradient(135deg, #ef4444, #b91c1c); }
+
+.stat-number {
+    font-size: 2.2rem;
+    font-weight: 700;
+    line-height: 1;
+}
+
+/* Footer */
+.footer-mart {
+    background-color: var(--primary);
+    color: #94a3b8;
+    padding: 2.5rem 0 1.5rem 0;
+    margin-top: 4rem;
+}
+
+.footer-brand {
+    color: white;
+    font-size: 1.3rem;
+    font-weight: 700;
+}

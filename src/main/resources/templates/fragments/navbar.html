@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head></head>
+<body>
+<nav th:fragment="navbar" class="navbar navbar-expand-lg navbar-dark custom-navbar sticky-top">
+    <div class="container">
+        <!-- Brand Name -->
+        <a class="navbar-brand navbar-brand-mart" th:href="@{/}">
+            <i class="bi bi-shop"></i> Shalini<span class="brand-accent">SmartMart</span>
+        </a>
+
+        <!-- Mobile Toggle Button -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#martNavbar" aria-controls="martNavbar" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="martNavbar">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/}"><i class="bi bi-house-door me-1"></i> Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/products}"><i class="bi bi-grid me-1"></i> Products</a>
+                </li>
+                
+                <!-- Category Dropdown (Dynamic from Database) -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="categoryDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="bi bi-tags me-1"></i> Categories
+                    </a>
+                    <ul class="dropdown-menu shadow" aria-labelledby="categoryDropdown">
+                        <li th:each="cat : ${allCategories}">
+                            <a class="dropdown-item" th:href="@{/products(category=${cat.id})}" th:text="${cat.name}">Category</a>
+                        </li>
+                        <li th:if="${#lists.isEmpty(allCategories)}"><a class="dropdown-item" th:href="@{/products}">All Products</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item fw-bold text-success" th:href="@{/products}">View All Products</a></li>
+                    </ul>
+                </li>
+
+                <!-- Customer specific links -->
+                <th:block th:if="${currentUser != null and currentUser.role == 'CUSTOMER'}">
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/orders}"><i class="bi bi-bag-check me-1"></i> My Orders</a>
+                    </li>
+                </th:block>
+
+                <!-- Admin specific links -->
+                <th:block th:if="${currentUser != null and currentUser.role == 'ADMIN'}">
+                    <li class="nav-item">
+                        <a class="nav-link text-warning fw-bold" th:href="@{/admin/dashboard}"><i class="bi bi-speedometer2 me-1"></i> Admin Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-info" th:href="@{/admin/reports}"><i class="bi bi-graph-up-arrow me-1"></i> Sales Report</a>
+                    </li>
+                </th:block>
+            </ul>
+
+            <!-- Right Nav (Cart & User Auth) -->
+            <div class="d-flex align-items-center gap-3">
+                <!-- Cart Icon for Customer / Guest -->
+                <a th:href="@{/cart}" class="btn btn-outline-light position-relative btn-sm px-3 rounded-pill">
+                    <i class="bi bi-cart3 fs-6 me-1"></i> Cart
+                    <span th:if="${cartItemCount > 0}" class="position-absolute top-0 start-100 translate-middle badge cart-badge" th:text="${cartItemCount}">0</span>
+                </a>
+
+                <th:block th:if="${currentUser == null}">
+                    <a th:href="@{/login}" class="btn btn-outline-success btn-sm rounded-pill px-3">Login</a>
+                    <a th:href="@{/register}" class="btn btn-success btn-sm rounded-pill px-3">Register</a>
+                    <a th:href="@{/admin/login}" class="btn btn-outline-warning btn-sm rounded-pill px-3" title="Admin Portal"><i class="bi bi-shield-lock me-1"></i> Admin</a>
+                </th:block>
+
+                <th:block th:if="${currentUser != null}">
+                    <div class="dropdown">
+                        <button class="btn btn-dark btn-sm dropdown-toggle rounded-pill px-3 border-secondary" type="button" data-bs-toggle="dropdown">
+                            <i class="bi bi-person-circle me-1 text-emerald"></i> <span th:text="${currentUser.name}">User</span>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end shadow">
+                            <li><a class="dropdown-item" th:href="@{/profile}"><i class="bi bi-person me-2"></i> Profile</a></li>
+                            <li th:if="${currentUser.role == 'ADMIN'}">
+                                <a class="dropdown-item text-primary" th:href="@{/admin/dashboard}"><i class="bi bi-shield-lock me-2"></i> Admin Panel</a>
+                            </li>
+                            <li th:if="${currentUser.role == 'ADMIN'}">
+                                <a class="dropdown-item text-success" th:href="@{/admin/reports}"><i class="bi bi-graph-up-arrow me-2"></i> Sales Report</a>
+                            </li>
+                            <li th:if="${currentUser.role == 'CUSTOMER'}">
+                                <a class="dropdown-item" th:href="@{/orders}"><i class="bi bi-bag-check me-2"></i> My Orders</a>
+                            </li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item text-danger" th:href="@{/logout}"><i class="bi bi-box-arrow-right me-2"></i> Logout</a></li>
+                        </ul>
+                    </div>
+                </th:block>
+            </div>
+        </div>
+    </div>
+</nav>
+</body>
+</html>

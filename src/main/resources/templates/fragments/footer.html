@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head></head>
+<body>
+<footer th:fragment="footer" class="footer-mart">
+    <div class="container">
+        <div class="row g-4 mb-4">
+            <div class="col-lg-4 col-md-6">
+                <div class="footer-brand mb-2">
+                    <i class="bi bi-shop"></i> Shalini<span class="text-success">SmartMart</span>
+                </div>
+                <p class="small text-slate-400">
+                    Your everyday shopping made simple. College Capstone Project designed for seamless grocery & daily essentials online shopping.
+                </p>
+                <div class="d-flex gap-2">
+                    <span class="badge bg-secondary">Fresh Groceries</span>
+                    <span class="badge bg-success">Fast Delivery</span>
+                    <span class="badge bg-primary">Best Savings</span>
+                </div>
+            </div>
+
+            <div class="col-lg-2 col-md-6">
+                <h6 class="text-white font-semibold mb-3">Quick Links</h6>
+                <ul class="list-unstyled text-small">
+                    <li class="mb-2"><a th:href="@{/}" class="text-decoration-none text-slate-400 hover:text-white">Home</a></li>
+                    <li class="mb-2"><a th:href="@{/products}" class="text-decoration-none text-slate-400 hover:text-white">All Products</a></li>
+                    <li class="mb-2"><a th:href="@{/cart}" class="text-decoration-none text-slate-400 hover:text-white">Shopping Cart</a></li>
+                    <li class="mb-2"><a th:href="@{/orders}" class="text-decoration-none text-slate-400 hover:text-white">My Orders</a></li>
+                    <li class="mb-2"><a th:href="@{/admin/login}" class="text-decoration-none text-warning hover:text-white"><i class="bi bi-shield-lock me-1"></i> Admin Login</a></li>
+                </ul>
+            </div>
+
+            <div class="col-lg-3 col-md-6">
+                <h6 class="text-white font-semibold mb-3">Categories</h6>
+                <ul class="list-unstyled text-small">
+                    <li class="mb-2"><a th:href="@{/products?category=1}" class="text-decoration-none text-slate-400 hover:text-white">Groceries & Staples</a></li>
+                    <li class="mb-2"><a th:href="@{/products?category=2}" class="text-decoration-none text-slate-400 hover:text-white">Fruits & Vegetables</a></li>
+                    <li class="mb-2"><a th:href="@{/products?category=3}" class="text-decoration-none text-slate-400 hover:text-white">Dairy & Bakery</a></li>
+                    <li class="mb-2"><a th:href="@{/products?category=6}" class="text-decoration-none text-slate-400 hover:text-white">Personal Care</a></li>
+                </ul>
+            </div>
+
+            <div class="col-lg-3 col-md-6">
+                <h6 class="text-white font-semibold mb-3">Support & Help</h6>
+                <p class="small text-slate-400 mb-2"><i class="bi bi-geo-alt text-success me-2"></i> Shalini SmartMart HQ, Main Campus</p>
+                <p class="small text-slate-400 mb-2"><i class="bi bi-envelope text-success me-2"></i> support@smartmart.com</p>
+                <p class="small text-slate-400"><i class="bi bi-telephone text-success me-2"></i> +91 98765 43210</p>
+            </div>
+        </div>
+        <hr class="border-secondary my-3">
+        <div class="d-flex flex-column flex-sm-row justify-content-between align-items-center small text-slate-400">
+            <div>&copy; 2026 <strong>Shalini SmartMart</strong>. All Rights Reserved.</div>
+            <div>College Capstone Project | Simple Spring Boot MVC Architecture</div>
+        </div>
+    </div>
+</footer>
+</body>
+</html>

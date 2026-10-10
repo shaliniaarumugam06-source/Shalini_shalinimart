@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Shopping Cart - Shalini SmartMart</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body class="bg-light">
+
+    <!-- Navbar -->
+    <div th:replace="~{fragments/navbar :: navbar}"></div>
+
+    <main class="container my-5">
+        <h2 class="fw-bold mb-4"><i class="bi bi-cart3 text-success me-2"></i> My Shopping Cart</h2>
+
+        <!-- Flash Alert Messages -->
+        <div th:if="${success}" class="alert alert-success alert-dismissible fade show" role="alert">
+            <i class="bi bi-check-circle me-1"></i> <span th:text="${success}"></span>
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+        <div th:if="${error}" class="alert alert-danger alert-dismissible fade show" role="alert">
+            <i class="bi bi-exclamation-triangle me-1"></i> <span th:text="${error}"></span>
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+
+        <!-- Empty Cart View -->
+        <div th:if="${cart == null or #lists.isEmpty(cart.items)}" class="text-center py-5 bg-white rounded-4 shadow-sm">
+            <div class="fs-1 text-muted"><i class="bi bi-cart-x"></i></div>
+            <h3 class="fw-bold mt-2">Your Shopping Cart is Empty</h3>
+            <p class="text-muted">Looks like you haven't added anything to your cart yet.</p>
+            <a th:href="@{/products}" class="btn btn-success btn-lg rounded-pill px-4">
+                <i class="bi bi-bag-fill me-2"></i> Start Shopping
+            </a>
+        </div>
+
+        <!-- Cart Items Table & Order Summary -->
+        <div th:if="${cart != null and !#lists.isEmpty(cart.items)}" class="row g-4">
+            <!-- Items Table -->
+            <div class="col-lg-8">
+                <div class="smart-card p-4">
+                    <div class="table-responsive">
+                        <table class="table align-middle mb-0">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Product</th>
+                                    <th>Price</th>
+                                    <th style="width: 140px;">Quantity</th>
+                                    <th>Subtotal</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="item : ${cart.items}">
+                                    <td>
+                                        <div class="d-flex align-items-center gap-3">
+                                            <img th:src="${item.product.image}" th:alt="${item.product.name}" class="rounded border" style="width: 60px; height: 60px; object-fit: cover;" onerror="this.src='https://images.unsplash.com/photo-1542838132-92c53300491e?w=500&auto=format&fit=crop'">
+                                            <div>
+                                                <h6 class="fw-bold mb-0 text-dark" th:text="${item.product.name}">Product Name</h6>
+                                                <small class="text-muted" th:text="${item.product.category.name}">Category</small>
+                                                <div th:if="${item.quantity > item.product.stock}" class="text-danger small fw-bold">
+                                                    Exceeds Stock (<span th:text="${item.product.stock}"></span> left)
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="fw-bold" th:text="${'₹' + item.product.finalPrice}">₹100</td>
+                                    <td>
+                                        <form th:action="@{/cart/update}" method="post" class="d-inline">
+                                            <input type="hidden" name="cartItemId" th:value="${item.id}">
+                                            <div class="input-group input-group-sm">
+                                                <button type="submit" name="quantity" th:value="${item.quantity - 1}" class="btn btn-outline-secondary" th:disabled="${item.quantity <= 1}">-</button>
+                                                <input type="number" name="quantity" th:value="${item.quantity}" class="form-control text-center fw-bold" readonly style="max-width: 45px;">
+                                                <button type="submit" name="quantity" th:value="${item.quantity + 1}" class="btn btn-outline-secondary" th:disabled="${item.quantity >= item.product.stock}">+</button>
+                                            </div>
+                                        </form>
+                                    </td>
+                                    <td class="fw-bold text-success" th:text="${'₹' + item.subtotal}">₹200</td>
+                                    <td>
+                                        <a th:href="@{/cart/remove/{id}(id=${item.id})}" class="btn btn-outline-danger btn-sm rounded-circle" title="Remove Item">
+                                            <i class="bi bi-trash"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="mt-3">
+                    <a th:href="@{/products}" class="btn btn-outline-secondary btn-sm rounded-pill">
+                        <i class="bi bi-arrow-left me-1"></i> Continue Shopping
+                    </a>
+                </div>
+            </div>
+
+            <!-- Order Summary Sidebar -->
+            <div class="col-lg-4">
+                <div class="smart-card p-4">
+                    <h5 class="fw-bold text-dark mb-3"><i class="bi bi-receipt me-2"></i> Order Summary</h5>
+                    
+                    <div class="d-flex justify-content-between mb-2">
+                        <span class="text-muted">Items Subtotal</span>
+                        <span class="fw-bold" th:text="${'₹' + itemsSubtotal}">₹0</span>
+                    </div>
+
+                    <div class="d-flex justify-content-between mb-2">
+                        <span class="text-muted">Delivery Charge</span>
+                        <span th:if="${deliveryCharge == 0}" class="text-success fw-bold">FREE</span>
+                        <span th:if="${deliveryCharge > 0}" class="fw-bold" th:text="${'₹' + deliveryCharge}">₹40</span>
+                    </div>
+
+                    <div th:if="${itemsSubtotal < 500}" class="small text-success bg-light-success p-2 rounded mb-3 border">
+                        <i class="bi bi-info-circle me-1"></i> Add ₹<span th:text="${#numbers.formatDecimal(500 - itemsSubtotal, 0, 2)}"></span> more for <strong>FREE Delivery!</strong>
+                    </div>
+
+                    <hr>
+
+                    <div class="d-flex justify-content-between mb-4 fs-5">
+                        <span class="fw-bold">Total Amount</span>
+                        <span class="fw-bold text-success" th:text="${'₹' + finalTotal}">₹0</span>
+                    </div>
+
+                    <a th:href="@{/checkout}" class="btn btn-success btn-lg w-100 rounded-pill fw-bold shadow-sm">
+                        <i class="bi bi-credit-card me-2"></i> Proceed to Checkout
+                    </a>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <div th:replace="~{fragments/footer :: footer}"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script th:src="@{/js/main.js}"></script>
+</body>
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Orders - Shalini SmartMart</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body class="bg-light">
+
+    <!-- Navbar -->
+    <div th:replace="~{fragments/navbar :: navbar}"></div>
+
+    <main class="container my-5">
+        <h2 class="fw-bold mb-4"><i class="bi bi-bag-check-fill text-success me-2"></i> My Order History</h2>
+
+        <!-- Flash Alert Messages -->
+        <div th:if="${success}" class="alert alert-success alert-dismissible fade show" role="alert">
+            <i class="bi bi-check-circle me-1"></i> <span th:text="${success}"></span>
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+        <div th:if="${error}" class="alert alert-danger alert-dismissible fade show" role="alert">
+            <i class="bi bi-exclamation-triangle me-1"></i> <span th:text="${error}"></span>
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+
+        <!-- Empty Orders View -->
+        <div th:if="${#lists.isEmpty(orders)}" class="text-center py-5 bg-white rounded-4 shadow-sm">
+            <div class="fs-1 text-muted"><i class="bi bi-box2"></i></div>
+            <h3 class="fw-bold mt-2">No Orders Found</h3>
+            <p class="text-muted">You haven't placed any orders yet.</p>
+            <a th:href="@{/products}" class="btn btn-success btn-lg rounded-pill px-4">
+                <i class="bi bi-bag-fill me-2"></i> Start Shopping
+            </a>
+        </div>
+
+        <!-- Orders List Table -->
+        <div th:if="${!#lists.isEmpty(orders)}" class="row g-4">
+            <div th:each="order : ${orders}" class="col-12">
+                <div class="smart-card p-4">
+                    <div class="row align-items-center g-3">
+                        <div class="col-md-3">
+                            <span class="badge bg-success mb-1" th:text="${order.orderNumber}">ORD-1001</span>
+                            <div class="small text-muted" th:text="${order.formattedDate}">Date</div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <small class="text-muted d-block">Items</small>
+                            <span class="fw-bold text-dark" th:text="${order.totalItemCount + ' Items'}">2 Items</span>
+                        </div>
+
+                        <div class="col-md-2">
+                            <small class="text-muted d-block">Total Amount</small>
+                            <span class="fw-bold text-success fs-5" th:text="${'₹' + order.totalAmount}">₹500</span>
+                        </div>
+
+                        <div class="col-md-3">
+                            <small class="text-muted d-block mb-1">Status</small>
+                            <span th:classappend="${order.status == 'Delivered' ? 'bg-success' : (order.status == 'Cancelled' ? 'bg-danger' : 'bg-primary')}" class="badge px-3 py-2 text-white fs-6">
+                                <i class="bi bi-info-circle me-1"></i> <span th:text="${order.status}">Order Placed</span>
+                            </span>
+                        </div>
+
+                        <div class="col-md-2 text-md-end">
+                            <a th:href="@{/orders/{id}(id=${order.id})}" class="btn btn-outline-success btn-sm rounded-pill px-3">
+                                <i class="bi bi-eye me-1"></i> Track Order
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <div th:replace="~{fragments/footer :: footer}"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script th:src="@{/js/main.js}"></script>
+</body>
+</html>
