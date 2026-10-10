@@ -33,3 +33,9 @@ Automated tests are available in the `src/test/java` directory.
 Run the tests using Maven:
 
 `mvn test`
+## Future Improvements
+
+- Improve mobile responsiveness
+- Expand automated test coverage
+- Improve application usability
+- Enhance error handling
