@@ -26,3 +26,10 @@
 - Java JDK
 - Maven
 - Git
+## Testing
+
+Automated tests are available in the `src/test/java` directory.
+
+Run the tests using Maven:
+
+`mvn test`
