@@ -45,4 +45,10 @@ The project includes product browsing, shopping cart,
 user account, and order management functionality.
 
 Development and testing are ongoing.
+## Development Guidelines
+
+- Keep code readable and maintainable.
+- Use meaningful class and method names.
+- Test changes before committing.
+- Update documentation when features change.
 
