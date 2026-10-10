@@ -21,3 +21,8 @@
 - Order management
 - User registration and login
 - Admin dashboard
+## Requirements
+
+- Java JDK
+- Maven
+- Git
