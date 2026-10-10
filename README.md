@@ -39,3 +39,10 @@ Run the tests using Maven:
 - Expand automated test coverage
 - Improve application usability
 - Enhance error handling
+## Project Status
+
+The project includes product browsing, shopping cart,
+user account, and order management functionality.
+
+Development and testing are ongoing.
+
