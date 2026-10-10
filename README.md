@@ -51,4 +51,22 @@ Development and testing are ongoing.
 - Use meaningful class and method names.
 - Test changes before committing.
 - Update documentation when features change.
+## Technologies Used
 
+- Java
+- Spring Boot
+- Thymeleaf
+- HTML and CSS
+- JavaScript
+- Maven
+
+## Version Control
+
+Git is used to track project changes, and GitHub is used to host the source code repository.
+
+## Contribution
+
+1. Review the existing project structure.
+2. Make a meaningful change.
+3. Test the application.
+4. Commit the changes with a clear message.
