@@ -13,3 +13,11 @@
 4. Install the required Maven dependencies.
 5. Run `ShaliniSmartMartApplication.java`.
 6. Open `http://localhost:8080` in your browser.
+## Key Features
+
+- Browse products
+- View product details
+- Shopping cart management
+- Order management
+- User registration and login
+- Admin dashboard
